@@ -17,7 +17,7 @@ export interface TVFallbackProps {
 
 export const TVFallback: React.FC<TVFallbackProps> = ({
   interactive = true,
-  screenContent = 'home',
+  screenContent: _screenContent = 'home',
   className = '',
 }) => {
   const [rotateX, setRotateX] = useState(0);

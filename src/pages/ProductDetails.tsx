@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Tv, ShieldCheck, Sparkles, Volume2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { PageContainer } from '../components/layout/PageContainer';
 import { Container } from '../components/ui/Container';
 import { Badge } from '../components/ui/Badge';
