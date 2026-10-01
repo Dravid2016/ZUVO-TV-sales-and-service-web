@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Ballpit } from '../ui/Ballpit/Ballpit';
 import {
   YouTubeLogo,
   NetflixLogo,
@@ -60,18 +61,19 @@ export const TVFallback: React.FC<TVFallbackProps> = ({
         {/* TV Screen Display Content */}
         <div className="relative w-full h-full bg-[#040406] overflow-hidden flex flex-col justify-between p-6 md:p-8">
           
-          {/* LIVE VISUAL SHOWCASE VIDEO BACKGROUND RUNNING INSIDE THE TV */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-80 z-0"
-            src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
-          />
+          {/* REACT BITS BALLPIT RUNNING INSIDE THE 3D TV DISPLAY */}
+          <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-90">
+            <Ballpit
+              count={200}
+              gravity={0.7}
+              friction={0.8}
+              wallBounce={0.95}
+              followCursor={true}
+            />
+          </div>
 
           {/* Dark Overlay Gradient for High Contrast UI */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/70 z-0 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/60 z-0 pointer-events-none" />
 
           {/* Top TV Screen UI Bar */}
           <div className="relative z-10 flex items-center justify-between">
