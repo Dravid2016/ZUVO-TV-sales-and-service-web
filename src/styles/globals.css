@@ -1,0 +1,55 @@
+@import './variables.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Glassmorphism & Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00d2ff;
+}
+
+/* Gradient Text Utility */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 30%, #b8b8b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-zuvo-gradient {
+  background: linear-gradient(135deg, #0052D4 0%, #00D2FF 50%, #928DAB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-zuvo-gradient {
+  background: linear-gradient(135deg, #0052D4 0%, #00D2FF 50%, #7928CA 100%);
+}
+
+.border-zuvo-gradient {
+  border-image: linear-gradient(135deg, #0052D4 0%, #00D2FF 50%, #7928CA 100%) 1;
+}
+
+/* Glow effects */
+.zuvo-glow {
+  box-shadow: 0 0 40px rgba(0, 210, 255, 0.2);
+}
