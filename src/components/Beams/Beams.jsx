@@ -170,14 +170,72 @@ const Beams = ({
 
   return (
     <CanvasWrapper>
-      <group rotation={[0, 0, degToRad(rotation)]}>
+      <BeamsScene
+        beamMaterial={beamMaterial}
+        beamNumber={beamNumber}
+        beamWidth={beamWidth}
+        beamHeight={beamHeight}
+        lightColor={lightColor}
+        backgroundColor={backgroundColor}
+        rotation={rotation}
+        meshRef={meshRef}
+        degToRad={degToRad}
+      />
+    </CanvasWrapper>
+  );
+};
+
+const BeamsScene = ({
+  beamMaterial,
+  beamNumber,
+  beamWidth,
+  beamHeight,
+  lightColor,
+  backgroundColor,
+  rotation,
+  meshRef,
+  degToRad
+}) => {
+  const groupRef = useRef(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMove = (e) => {
+      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener('pointermove', handleMove);
+    return () => window.removeEventListener('pointermove', handleMove);
+  }, []);
+
+  const baseRotationRad = degToRad(rotation);
+
+  useFrame(() => {
+    if (groupRef.current) {
+      const targetRotY = mouseRef.current.x * 0.45;
+      const targetRotX = -mouseRef.current.y * 0.35;
+      const targetPosX = mouseRef.current.x * 3.0;
+      const targetPosY = mouseRef.current.y * 2.0;
+
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotY, 0.05);
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotX, 0.05);
+      groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, baseRotationRad + mouseRef.current.x * 0.15, 0.05);
+
+      groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetPosX, 0.05);
+      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetPosY, 0.05);
+    }
+  });
+
+  return (
+    <>
+      <group ref={groupRef} rotation={[0, 0, baseRotationRad]}>
         <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} />
         <DirLight color={lightColor} position={[0, 3, 10]} />
       </group>
       <ambientLight intensity={1} />
       <color attach="background" args={[backgroundColor]} />
       <PerspectiveCamera makeDefault position={[0, 0, 20]} fov={30} />
-    </CanvasWrapper>
+    </>
   );
 };
 

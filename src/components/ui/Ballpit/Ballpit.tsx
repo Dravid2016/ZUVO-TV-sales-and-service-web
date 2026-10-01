@@ -101,13 +101,24 @@ class ThreeCanvasApp {
       console.error('Three: Missing canvas or id parameter');
     }
     this.canvas.style.display = 'block';
-    const opts = {
-      canvas: this.canvas,
-      powerPreference: 'high-performance',
-      ...(this.#e.rendererOptions ?? {})
-    };
-    this.renderer = new (s as any)(opts);
-    this.renderer.outputColorSpace = n;
+    try {
+      const gl = this.canvas.getContext('webgl2') || this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
+      if (!gl) {
+        throw new Error('WebGL is not supported on this browser/device');
+      }
+      const opts = {
+        canvas: this.canvas,
+        powerPreference: 'high-performance',
+        ...(this.#e.rendererOptions ?? {})
+      };
+      this.renderer = new (s as any)(opts);
+      if (this.renderer) {
+        this.renderer.outputColorSpace = n;
+      }
+    } catch (err) {
+      console.warn('Ballpit ThreeCanvasApp WebGL initialization error:', err);
+      this.renderer = null;
+    }
   }
   #g() {
     if (!(this.#e.size instanceof Object)) {
@@ -192,6 +203,7 @@ class ThreeCanvasApp {
     }
   }
   #b() {
+    if (!this.renderer) return;
     this.renderer.setSize(this.size.width, this.size.height);
     this.#t?.setSize(this.size.width, this.size.height);
     let ratio = window.devicePixelRatio;
@@ -220,7 +232,9 @@ class ThreeCanvasApp {
       this.#h.delta = typeof this.#c.getDelta === 'function' ? this.#c.getDelta() : 0.016;
       this.#h.elapsed += this.#h.delta;
       this.onBeforeRender(this.#h);
-      this.render();
+      if (this.renderer) {
+        this.render();
+      }
       this.onAfterRender(this.#h);
     };
     this.#n = true;
@@ -798,11 +812,17 @@ export const Ballpit: React.FC<BallpitProps> = ({ className = '', followCursor =
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    spheresInstanceRef.current = createBallpitApp(canvas, { followCursor, ...props });
+    try {
+      spheresInstanceRef.current = createBallpitApp(canvas, { followCursor, ...props });
+    } catch (err) {
+      console.warn('Ballpit could not be initialized:', err);
+    }
 
     return () => {
       if (spheresInstanceRef.current) {
-        spheresInstanceRef.current.dispose();
+        try {
+          spheresInstanceRef.current.dispose();
+        } catch (_) {}
         spheresInstanceRef.current = null;
       }
     };
@@ -814,8 +834,10 @@ export const Ballpit: React.FC<BallpitProps> = ({ className = '', followCursor =
       isFirstRender.current = false;
       return;
     }
-    if (spheresInstanceRef.current) {
-      spheresInstanceRef.current.updateConfig({ followCursor, ...props });
+    if (spheresInstanceRef.current?.updateConfig) {
+      try {
+        spheresInstanceRef.current.updateConfig({ followCursor, ...props });
+      } catch (_) {}
     }
   }, [props, followCursor]);
 

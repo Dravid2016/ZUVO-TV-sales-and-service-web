@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react';
 import { TV3D } from '../tv/TV3D';
 import Beams from '../Beams/Beams';
+import { ErrorBoundary } from '../common/ErrorBoundary';
 import { siteConfig } from '../../data/siteConfig';
 
 export const HeroSection: React.FC = () => {
@@ -11,16 +12,18 @@ export const HeroSection: React.FC = () => {
     <section className="landing-page relative min-h-[90vh] flex flex-col justify-center overflow-hidden pt-28 sm:pt-32 pb-24">
       {/* React Bits Beams Background Layer */}
       <div className="landing-background absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <Beams
-          beamWidth={2}
-          beamHeight={15}
-          beamNumber={12}
-          lightColor="#ffffff"
-          speed={2}
-          noiseIntensity={1.75}
-          scale={0.2}
-          rotation={0}
-        />
+        <ErrorBoundary fallback={null}>
+          <Beams
+            beamWidth={2}
+            beamHeight={15}
+            beamNumber={12}
+            lightColor="#ffffff"
+            speed={2}
+            noiseIntensity={1.75}
+            scale={0.2}
+            rotation={0}
+          />
+        </ErrorBoundary>
       </div>
 
       {/* Background Overlay / Vignette Gradient */}
@@ -89,7 +92,9 @@ export const HeroSection: React.FC = () => {
           transition={{ duration: 1, delay: 0.3 }}
           className="w-full max-w-5xl mx-auto"
         >
-          <TV3D interactive={true} screenContent="home" />
+          <ErrorBoundary fallback={null}>
+            <TV3D interactive={true} screenContent="home" />
+          </ErrorBoundary>
         </motion.div>
 
         {/* Key Highlight Metrics Strip */}

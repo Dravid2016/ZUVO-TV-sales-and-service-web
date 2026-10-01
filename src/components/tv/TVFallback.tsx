@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Ballpit } from '../ui/Ballpit/Ballpit';
 import {
   YouTubeLogo,
   NetflixLogo,
@@ -23,6 +22,7 @@ export const TVFallback: React.FC<TVFallbackProps> = ({
 }) => {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
+  const [activeVisualMode, setActiveVisualMode] = useState<'video' | 'beach' | 'ocean' | 'mountain'>('video');
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!interactive) return;
@@ -61,45 +61,103 @@ export const TVFallback: React.FC<TVFallbackProps> = ({
         {/* TV Screen Display Content */}
         <div className="relative w-full h-full bg-[#040406] overflow-hidden flex flex-col justify-between p-6 md:p-8">
           
-          {/* REACT BITS BALLPIT RUNNING INSIDE THE 3D TV DISPLAY */}
-          <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-90">
-            <Ballpit
-              count={200}
-              gravity={0.7}
-              friction={0.8}
-              wallBounce={0.95}
-              followCursor={true}
-            />
-          </div>
+          {/* CINEMATIC 4K VIDEO & NATURE VISUAL BACKGROUND ON TV DISPLAY */}
+          <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-black">
+            {activeVisualMode === 'video' && (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover object-center brightness-110 contrast-110 saturate-125 pointer-events-none transition-opacity duration-700 opacity-100"
+                poster="/assets/nature-1.jpg"
+              >
+                <source src="/assets/nature-flower.mp4" type="video/mp4" />
+                <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4" />
+              </video>
+            )}
 
-          {/* Dark Overlay Gradient for High Contrast UI */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/60 z-0 pointer-events-none" />
+            {activeVisualMode === 'beach' && (
+              <img
+                src="/assets/nature-1.jpg"
+                alt="Tropical Nature Beach"
+                className="w-full h-full object-cover object-center brightness-110 contrast-110 saturate-125 transition-all duration-700"
+              />
+            )}
+
+            {activeVisualMode === 'ocean' && (
+              <img
+                src="/assets/nature-2.jpg"
+                alt="Deep Aquatic Ocean Reef"
+                className="w-full h-full object-cover object-center brightness-110 contrast-110 saturate-125 transition-all duration-700"
+              />
+            )}
+
+            {activeVisualMode === 'mountain' && (
+              <img
+                src="/assets/nature-3.jpg"
+                alt="Mountain Sunset Skyline"
+                className="w-full h-full object-cover object-center brightness-110 contrast-110 saturate-125 transition-all duration-700"
+              />
+            )}
+          </div>
 
           {/* Top TV Screen UI Bar */}
           <div className="relative z-10 flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <img src="/zuvo-logo.svg" alt="ZUVO" className="h-6 w-auto drop-shadow-md" />
+              <img src="/zuvo-logo.svg" alt="ZUVO" className="h-6 w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]" />
             </div>
-            <div className="flex items-center space-x-4 text-xs font-semibold text-white drop-shadow-md">
-              <span className="flex items-center space-x-1.5 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+            
+            {/* Nature Visual Channel Switcher Bar */}
+            <div className="flex items-center space-x-3 text-xs font-semibold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              <div className="flex items-center space-x-1 bg-black/80 backdrop-blur-md p-1 rounded-full border border-white/20 shadow-lg">
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setActiveVisualMode('video'); }}
+                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
+                    activeVisualMode === 'video'
+                      ? 'bg-cyan-400 text-black shadow-[0_0_12px_rgba(0,210,255,0.8)] scale-105'
+                      : 'text-neutral-300 hover:text-white'
+                  }`}
+                >
+                  Nature Video
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setActiveVisualMode('beach'); }}
+                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
+                    activeVisualMode === 'beach'
+                      ? 'bg-cyan-400 text-black shadow-[0_0_12px_rgba(0,210,255,0.8)] scale-105'
+                      : 'text-neutral-300 hover:text-white'
+                  }`}
+                >
+                  Beach
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setActiveVisualMode('mountain'); }}
+                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
+                    activeVisualMode === 'mountain'
+                      ? 'bg-cyan-400 text-black shadow-[0_0_12px_rgba(0,210,255,0.8)] scale-105'
+                      : 'text-neutral-300 hover:text-white'
+                  }`}
+                >
+                  Sunset
+                </button>
+              </div>
+
+              <span className="hidden sm:flex items-center space-x-1.5 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-md">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>4K HDR10+ LIVE</span>
               </span>
-              <span>8:45 PM</span>
             </div>
           </div>
 
-          {/* Center TV Screen Hero Banner */}
-          <div className="relative z-10 max-w-lg my-auto drop-shadow-lg">
-            <span className="px-3.5 py-1 rounded-full bg-cyan-500/30 border border-cyan-400/50 text-cyan-200 text-[11px] font-bold tracking-widest uppercase mb-3 inline-block backdrop-blur-md">
-              STREAMING IN 4K ULTRA HD
+          {/* Minimalist Bottom-Left Video Badge so Center Video is 100% Unobscured */}
+          <div className="relative z-10 max-w-sm mt-auto mb-3 drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
+            <span className="px-3 py-0.5 rounded-full bg-black/60 border border-cyan-400/50 text-cyan-300 text-[10px] font-extrabold tracking-widest uppercase inline-block backdrop-blur-md">
+              4K QUANTUM DISPLAY
             </span>
-            <h4 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight mb-2 drop-shadow-md">
-              CINEMATIC QUANTUM VISUALS
-            </h4>
-            <p className="text-neutral-200 text-xs md:text-sm line-clamp-2 leading-relaxed drop-shadow-md">
-              Experience dynamic micro-dimming and 1 billion+ colors on official OTT platforms with ZUVO Android TV.
-            </p>
           </div>
 
           {/* Bottom App Launcher Row — NO BUTTON BOXES (Placed Normally as requested by User) */}
