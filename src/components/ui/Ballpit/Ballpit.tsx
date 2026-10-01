@@ -214,15 +214,21 @@ class ThreeCanvasApp {
     if (this.#n) return;
     const animate = () => {
       this.#l = requestAnimationFrame(animate);
-      this.#c.update();
-      this.#h.delta = this.#c.getDelta();
+      if (typeof this.#c.update === 'function') {
+        this.#c.update();
+      }
+      this.#h.delta = typeof this.#c.getDelta === 'function' ? this.#c.getDelta() : 0.016;
       this.#h.elapsed += this.#h.delta;
       this.onBeforeRender(this.#h);
       this.render();
       this.onAfterRender(this.#h);
     };
     this.#n = true;
-    this.#c.reset();
+    if (typeof this.#c.reset === 'function') {
+      this.#c.reset();
+    } else if (typeof this.#c.start === 'function') {
+      this.#c.start();
+    }
     animate();
   }
   #z() {
