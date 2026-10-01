@@ -252,7 +252,7 @@ class ThreeCanvasApp {
   dispose() {
     this.#y();
     this.#z();
-    this.#c.dispose();
+    this.#c?.dispose?.();
     this.clear();
     this.#t?.dispose();
     this.renderer.dispose();
