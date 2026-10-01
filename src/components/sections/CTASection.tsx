@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { Badge } from '../ui/Badge';
+import { Scanner } from '../ui/Scanner/Scanner';
 import { siteConfig } from '../../data/siteConfig';
 
 export const CTASection: React.FC = () => {
@@ -10,6 +11,38 @@ export const CTASection: React.FC = () => {
     <section className="py-24 bg-black relative overflow-hidden">
       <Container size="wide">
         <div className="relative w-full rounded-3xl sm:rounded-[36px] bg-gradient-to-r from-[#090e1a] via-[#05060b] to-[#12071a] border border-white/15 p-10 sm:p-16 lg:p-20 text-left overflow-hidden shadow-2xl">
+          {/* React Bits Scanner Background Layer (contained inside card) */}
+          <div className="absolute inset-0 w-full h-full z-0 opacity-75 overflow-hidden">
+            <Scanner
+              color1="#5227FF"
+              color2="#FF9FFC"
+              color3="#FFFFFF"
+              speed={0.5}
+              sweepSpeed={0.25}
+              sweepWidth={1.6}
+              sweepFalloff={6}
+              scale={1.5}
+              frequency={2}
+              ripple={0.22}
+              bandDensity={11}
+              lineSharpness={5.5}
+              glow={0.22}
+              scanDirection="vertical"
+              colorSpread={0.7}
+              brightness={1.0}
+              contrast={1.15}
+              softness={1.4}
+              vignette={0.45}
+              scanline={true}
+              grain={true}
+              grainIntensity={0.05}
+              opacity={1.0}
+              mouseInteraction={true}
+              mouseRadius={0.5}
+              mouseStrength={0.5}
+            />
+          </div>
+
           {/* Card Dark Gradient Overlay to guarantee text readability */}
           <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-r from-[#090e1a]/80 via-[#05060b]/40 to-transparent" />
 
