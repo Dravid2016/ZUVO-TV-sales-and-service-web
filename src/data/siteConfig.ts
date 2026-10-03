@@ -4,10 +4,10 @@ export const siteConfig = {
   tagline: 'SMART ENTERTAINMENT. REIMAGINED.',
   description: 'Official ZUVO Smart Television platform. Experience next-generation Android TV, cinematic visual precision, and quantum color display technology.',
   contact: {
-    email: 'support@zuvo.tv',
-    phone: '+1 (800) 555-ZUVO',
-    address: 'ZUVO Consumer Electronics Inc., Tech Park Central',
-    hours: 'Mon - Sat: 9:00 AM - 8:00 PM EST',
+    email: 'zuvoandroidtv@gmail.com',
+    phone: '+91 8056666653',
+    address: 'Aarani, Tamil Nadu, India',
+    hours: 'Mon - Sat: 9:00 AM - 8:00 PM IST',
   },
   social: {
     twitter: 'https://twitter.com/zuvotv',

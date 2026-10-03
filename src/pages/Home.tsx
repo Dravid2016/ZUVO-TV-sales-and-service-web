@@ -5,7 +5,6 @@ import { IntroSection } from '../components/sections/IntroSection';
 import { AndroidTVSection } from '../components/sections/AndroidTVSection';
 import { FeaturesSection } from '../components/sections/FeaturesSection';
 import { ProductShowcase } from '../components/sections/ProductShowcase';
-import { CinematicTVSection } from '../components/sections/CinematicTVSection';
 import { WhyZuvoSection } from '../components/sections/WhyZuvoSection';
 import { CTASection } from '../components/sections/CTASection';
 
@@ -17,7 +16,6 @@ export const Home: React.FC = () => {
       <AndroidTVSection />
       <FeaturesSection />
       <ProductShowcase />
-      <CinematicTVSection />
       <WhyZuvoSection />
       <CTASection />
     </PageContainer>

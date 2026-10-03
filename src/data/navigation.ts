@@ -14,9 +14,13 @@ export const mainNavLinks: NavLink[] = [
 
 export const footerLinks = {
   products: [
-    { label: 'Quantum 4K Series', path: '/products/zuvo-quantum-4k' },
-    { label: 'OLED Master Series', path: '/products/zuvo-oled-master' },
-    { label: 'Crystal Vision Series', path: '/products/zuvo-crystal-vision' },
+    { label: '24" Normal LED TV', path: '/products/zuvo-24-normal' },
+    { label: '32" Smart LED TV', path: '/products/zuvo-32-smart' },
+    { label: '32" Smart + B/T + Voice', path: '/products/zuvo-32-smart-bt-voice' },
+    { label: '43" Smart LED TV', path: '/products/zuvo-43-smart' },
+    { label: '43" Smart + B/T + Voice', path: '/products/zuvo-43-smart-bt-voice' },
+    { label: '50" Smart + B/T + Voice', path: '/products/zuvo-50-smart-bt-voice' },
+    { label: '55" Smart + B/T + Voice', path: '/products/zuvo-55-smart-bt-voice' },
     { label: 'All TV Models', path: '/products' },
   ],
   technology: [

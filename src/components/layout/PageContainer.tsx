@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { WhatsAppWidget } from '../common/WhatsAppWidget';
 
 export interface PageContainerProps {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({ children, noPaddin
       <Header />
       <main className={`flex-1 ${noPadding ? 'pt-0' : 'pt-24'}`}>{children}</main>
       <Footer />
+      <WhatsAppWidget />
     </div>
   );
 };

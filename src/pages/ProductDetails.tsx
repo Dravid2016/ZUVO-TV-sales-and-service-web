@@ -1,11 +1,12 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, MessageSquare } from 'lucide-react';
 import { PageContainer } from '../components/layout/PageContainer';
 import { Container } from '../components/ui/Container';
 import { Badge } from '../components/ui/Badge';
 import { products } from '../data/products';
 import { TV3D } from '../components/tv/TV3D';
+import { getQuickSalesUrl } from '../utils/whatsapp';
 
 export const ProductDetails: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -88,17 +89,20 @@ export const ProductDetails: React.FC = () => {
 
               {/* Action Buttons */}
               <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-4">
+                <a
+                  href={getQuickSalesUrl(product.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center px-8 py-4 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs tracking-widest uppercase shadow-lg transition-all flex items-center justify-center space-x-2"
+                >
+                  <MessageSquare size={16} />
+                  <span>INQUIRE / BUY ON WHATSAPP</span>
+                </a>
                 <Link
                   to="/contact"
-                  className="w-full text-center px-8 py-4 rounded-full bg-white text-black font-bold text-xs tracking-widest uppercase hover:bg-neutral-200 shadow-lg transition-all"
-                >
-                  INQUIRE / DEALER INFO
-                </Link>
-                <Link
-                  to="/support"
                   className="w-full text-center px-8 py-4 rounded-full bg-white/5 text-white font-bold text-xs tracking-widest uppercase border border-white/20 hover:bg-white/10 transition-all"
                 >
-                  WARRANTY & MANUALS
+                  DEALER & SERVICE INFO
                 </Link>
               </div>
             </div>

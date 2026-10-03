@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Award, Wrench, Sparkles } from 'lucide-react';
+import { Award, Wrench, Sparkles } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
 import { Container } from '../ui/Container';
 
@@ -9,11 +9,6 @@ export const WhyZuvoSection: React.FC = () => {
       icon: <Sparkles className="text-cyan-400" size={28} />,
       title: 'Precision Display Engineering',
       desc: 'Tested for color accuracy, brightness uniformity, and long-term backlight durability.',
-    },
-    {
-      icon: <ShieldCheck className="text-cyan-400" size={28} />,
-      title: 'Official Google Certification',
-      desc: 'Guaranteed compatibility with Google Play Store, Widevine L1 4K streaming security, and OS updates.',
     },
     {
       icon: <Award className="text-cyan-400" size={28} />,
@@ -37,7 +32,7 @@ export const WhyZuvoSection: React.FC = () => {
           subtitle="Discover what sets ZUVO apart as an emerging leader in smart television innovation."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           {pillars.map((item, i) => (
             <div
               key={i}

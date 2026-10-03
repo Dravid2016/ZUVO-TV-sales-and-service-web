@@ -6,7 +6,7 @@ import { products } from '../../data/products';
 
 export const ProductShowcase: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const categories = ['All', 'Quantum QLED', 'OLED Master', 'Crystal UHD'];
+  const categories = ['All', 'Normal TV', 'Smart TV', 'Voice & Bluetooth Smart TV'];
 
   const filteredProducts = activeCategory === 'All'
     ? products

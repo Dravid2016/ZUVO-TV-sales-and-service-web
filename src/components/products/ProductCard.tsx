@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, MessageSquare } from 'lucide-react';
 import { TVProduct } from '../../data/products';
 import { Badge } from '../ui/Badge';
+import { getQuickSalesUrl } from '../../utils/whatsapp';
 
 export interface ProductCardProps {
   product: TVProduct;
@@ -62,14 +63,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {/* Action Footer */}
-      <div className="pt-6 border-t border-white/10 flex items-center justify-between w-full">
-        <div className="text-left">
-          <span className="text-[10px] text-neutral-500 uppercase tracking-wider block">AVAILABILITY</span>
-          <span className="text-xs font-semibold text-emerald-400">Official Brand Launch</span>
-        </div>
+      <div className="pt-6 border-t border-white/10 flex items-center justify-between w-full space-x-2">
+        <a
+          href={getQuickSalesUrl(product.name)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-2.5 rounded-full bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500 hover:text-white border border-emerald-500/30 transition-all flex items-center justify-center"
+          title={`Inquire about ${product.name} on WhatsApp`}
+        >
+          <MessageSquare size={16} />
+        </a>
         <Link
           to={`/products/${product.id}`}
-          className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold tracking-wider hover:bg-neutral-200 transition-all flex items-center space-x-1 group-hover:shadow-zuvo-glow"
+          className="px-4 py-2.5 rounded-full bg-white text-black text-xs font-bold tracking-wider hover:bg-neutral-200 transition-all flex items-center space-x-1 group-hover:shadow-zuvo-glow"
         >
           <span>VIEW SPECS</span>
           <ArrowRight size={14} />
